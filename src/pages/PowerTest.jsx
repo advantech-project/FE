@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PowerService from "../services/PowerService"; // 데이터 서비스 모듈 임포트
+import PowerService from "../services/PowerService";
 
 function PowerTest() {
   const [power, setPower] = useState(0);
@@ -9,7 +9,7 @@ function PowerTest() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const powerData = await PowerService.fetchPower(); // 서비스 모듈에서 데이터 요청
+        const powerData = await PowerService.fetchPower();
         setPower(powerData);
         setIsLoading(false);
       } catch (error) {
@@ -20,6 +20,17 @@ function PowerTest() {
     };
 
     fetchData();
+    const interval = setInterval(async () => {
+      try {
+        const powerData = await PowerService.fetchPower(); // 서비스 모듈에서 데이터 요청
+        setPower(powerData);
+      } catch (error) {
+        console.error("주기적 데이터 불러오기 중 오류 발생", error);
+        setError("서버 연결에 실패했습니다. 서버 상태를 확인해주세요.");
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
