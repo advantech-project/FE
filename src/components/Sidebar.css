@@ -1,0 +1,45 @@
+.sidebar {
+  width: 250px;
+  background-color: #2c2f33;
+  color: #fff;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 240px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-select {
+  background-color: #4caf50;
+  color: white;
+  padding: 30px;
+  text-align: center;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.sidebar-select option {
+  background-color: #4caf50;
+  color: white;
+  font-size: 23px;
+}

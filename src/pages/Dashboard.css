@@ -1,0 +1,35 @@
+.dashboard {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.charts {
+  width: 100%;
+}
+
+.daily-chart {
+  width: 100%;
+}
+
+.chart-container {
+  background-color: #ffffff; /* 흰색 배경 */
+  padding: 20px;
+  border-radius: 10px; /* 옵션: 모서리를 둥글게 */
+}
