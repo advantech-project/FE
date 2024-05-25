@@ -1,17 +1,22 @@
 .app-container {
   display: flex;
   height: 100vh;
+  flex-direction: row;
 }
 
 .sidebar {
+  z-index: 0;
+  position: relative;
   width: 250px;
 }
 
 .content-container {
+  z-index: 1;
+  position: relative;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1e1e1e;
+  background-color: #fff8f8;
   padding: 20px;
 }
