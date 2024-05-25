@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5173/power";
+const API_URL = "http://localhost:8080/power";
 
 class PowerService {
   static async fetchPower() {
@@ -16,3 +16,5 @@ class PowerService {
     }
   }
 }
+
+export default new PowerService();

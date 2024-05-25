@@ -15,9 +15,13 @@ const UserList = () => {
   }, []);
 
   const fetchUsers = () => {
-    UserService.getUsers().then((response) => {
-      setUsers(response.data);
-    });
+    UserService.getUsers()
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
   };
 
   const handleInputChange = (e) => {
@@ -31,17 +35,29 @@ const UserList = () => {
   };
 
   const handleCreateUser = () => {
-    UserService.createUser(newUser).then(fetchUsers);
+    UserService.createUser(newUser)
+      .then(fetchUsers)
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
     setNewUser({ firstName: "", lastName: "", email: "" });
   };
 
   const handleUpdateUser = () => {
-    UserService.updateUser(editUser.id, editUser).then(fetchUsers);
+    UserService.updateUser(editUser.id, editUser)
+      .then(fetchUsers)
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
     setEditUser(null);
   };
 
   const handleDeleteUser = (id) => {
-    UserService.deleteUser(id).then(fetchUsers);
+    UserService.deleteUser(id)
+      .then(fetchUsers)
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
   };
 
   return (
