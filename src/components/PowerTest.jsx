@@ -10,11 +10,10 @@ function PowerTest() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Building ID:", buildingID); // 로깅 추가
-
     const fetchData = async () => {
       try {
         const data = await fetchPower(buildingID);
+        console.log(data);
         setPowerData(data);
         setIsLoading(false);
       } catch (error) {
@@ -25,6 +24,10 @@ function PowerTest() {
     };
 
     fetchData();
+
+    const intervalId = setInterval(fetchData, 600000);
+
+    return () => clearInterval(intervalId);
   }, [buildingID]);
 
   if (isLoading) return <p>Loading...</p>;
@@ -33,12 +36,18 @@ function PowerTest() {
   return (
     <div className="power-usage-box">
       <div className="power-usage-item">
-        <h1>현재 전력 사용량</h1>
+        {/* <h1>현재 전력 사용량</h1>
         <p>{powerData.current_consumption || "데이터 없음"}</p>
       </div>
       <div className="power-usage-item">
         <h1>예상 전력 사용량</h1>
-        <p>{powerData.expected_consumption || "데이터 없음"}</p>
+        <p>{powerData.expected_consumption || "데이터 없음"}</p> */}
+        <h1>현재 전력 사용량</h1>
+        <p>{powerData.datavalue || "데이터 없음"}</p>
+      </div>
+      <div className="power-usage-item">
+        <h1>예상 전력 사용량</h1>
+        <p>{powerData.datavalue || "데이터 없음"}</p>
       </div>
     </div>
   );

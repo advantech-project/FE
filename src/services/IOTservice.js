@@ -1,11 +1,12 @@
 // src/services/IOTService.js
 import axios from "axios";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://47.128.214.187:5017";
 
 export const fetchIOTstatus = async () => {
   try {
-    const response = await axios.get(`${API_URL}/iots/`);
+    const response = await axios.get(`${API_URL}/iots`);
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch IOT statuses:", error);
@@ -14,7 +15,8 @@ export const fetchIOTstatus = async () => {
 };
 const controlIOTdevice = async (details) => {
   try {
-    const response = await axios.post(`${API_URL}/iot-control`, details);
+    console.log("success");
+    const response = await axios.post(`${API_URL}/iot/turn`, details);
     return response.data;
   } catch (error) {
     console.error(`Error turning off IOT device:`, error);

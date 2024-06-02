@@ -4,8 +4,8 @@ import IOTservice from "../services/IOTservice";
 
 function IOT_signal() {
   const [iotDevices, setIotDevices] = useState([
-    { room_number: "202", iot_name: "fan", iot_id: "1", status: "OFF" },
-    { room_number: "204", iot_name: "plug", iot_id: "2", status: "OFF" },
+    { iot_id: "1", status: "Undefined", iot_name: "Fan", Room: "202" },
+    { iot_id: "2", status: "Undefined", iot_name: "Plug", Room: "204" },
   ]);
 
   useEffect(() => {
@@ -13,12 +13,15 @@ function IOT_signal() {
       try {
         // 모든 IOT 장치 상태를 한 번에 가져오는 API 가정
         const allStatuses = await IOTservice.fetchIOTstatus();
-        setIotDevices(
-          allStatuses.map((status) => ({
-            iot_id: status.iot_id,
-            status: status.status,
-          }))
-        );
+        const updatedDevices = iotDevices.map((device) => {
+          const statusUpdate = allStatuses.find(
+            (status) => status.id.toString() === device.iot_id //fetch한 id값과 iot_id값이 동일한 것들은 update
+          );
+          return statusUpdate
+            ? { ...device, status: statusUpdate.status }
+            : device;
+        });
+        setIotDevices(updatedDevices);
       } catch (error) {
         console.error("Failed to fetch IOT statuses:", error);
       }
@@ -34,9 +37,9 @@ function IOT_signal() {
         status: newStatus,
       });
       if (response.success) {
-        // 서버에서 성공 응답을 받았다면 상태 업데이트
+        // 서버에서 성공 응답을 받았다면 상태 업데이트 ★★★★여기서 만약 update안되면 위에 fetchAllIOTstatus에 allStatuses.find()이 부분 참고해서 하기★★★★
         const updatedDevices = iotDevices.map((device) => {
-          if (device.iot_id === iot_id) {
+          if (device.id === iot_id) {
             return { ...device, status: newStatus };
           }
           return device;
@@ -57,7 +60,7 @@ function IOT_signal() {
       {iotDevices.map((device) => (
         <div key={device.iot_id} className="iot-box">
           <div className="iot-header">
-            Room {device.room_number} - {device.iot_name} (ID: {device.iot_id})
+            Room {device.Room} IOT_name {device.iot_name} (ID: {device.iot_id})
           </div>
           <div className="iot-status">Status: {device.status}</div>
           <div className="iot-controls">

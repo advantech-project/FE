@@ -32,7 +32,7 @@ const Sidebar = () => {
   const handleSelectChange = (event) => {
     const building = event.target.value;
     setSelectedBuilding(building);
-    navigate(`/test-power/${building}`);
+    navigate(`/${building}`);
   };
 
   return (
