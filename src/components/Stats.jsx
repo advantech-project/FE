@@ -1,28 +1,82 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Stats.css";
+import fetchPower from "../services/PowerService";
 
 const Stats = () => {
+  const [powerUsage, setPowerUsage] = useState({
+    currentPowerUsage: 0,
+    expectedPowerUsage: 0,
+    savedPower: 0,
+    savedCarbon: 0,
+    savedMoney: 0,
+  });
+
+  const [currentTime, setCurrentTime] = useState("");
+
+  useEffect(() => {
+    const fetchPowerData = async () => {
+      try {
+        const buildingID = "hightech"; // 예시로 하이테크 건물 ID 사용
+        const data = await fetchPower(buildingID);
+        const currentPower = parseInt(
+          data.current_consumption.split(" ")[0],
+          10
+        ); // "350 kWh"에서 숫자만 추출
+        const expectedPower = parseInt(
+          data.expected_consumption.split(" ")[0],
+          10
+        ); // "500 kWh"에서 숫자만 추출
+        const savedPower = expectedPower - currentPower;
+        const savedCarbon = savedPower * 0.4;
+        const savedMoney = savedPower * 200;
+        setPowerUsage({
+          currentPowerUsage: currentPower,
+          expectedPowerUsage: expectedPower,
+          savedPower: savedPower,
+          savedCarbon: savedCarbon,
+          savedMoney: savedMoney,
+        });
+      } catch (error) {
+        console.error("Failed to fetch power data:", error);
+      }
+    };
+
+    fetchPowerData();
+
+    const updateClock = () => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const month = (now.getMonth() + 1).toString().padStart(2, "0");
+      const date = now.getDate().toString().padStart(2, "0");
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const day = dayNames[now.getDay()];
+      setCurrentTime(`${month}.${date}(${day}) ${hours}:${minutes}`);
+    };
+
+    updateClock();
+    const timer = setInterval(updateClock, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="stats-container">
       <div className="stat-item">
         <img src="/Clock.png" alt="Clock" className="stat-icon" />
-        <span>05.06(Mon) 17:31</span>
-      </div>
-      <div className="stat-item">
-        <img src="/Calender.png" alt="Calender" className="stat-icon" />
-        <span>에코알라 데이: 28D 15H 39M</span>
+        <span>{currentTime}</span>
       </div>
       <div className="stat-item">
         <img src="/Electronic.png" alt="Electronic" className="stat-icon" />
-        <span>절약한 전력: 175kW</span>
+        <span>절약한 전력: {powerUsage.savedPower.toFixed(2)} kW</span>
       </div>
       <div className="stat-item">
         <img src="/Foot.png" alt="Foot" className="stat-icon" />
-        <span>절약한 탄소: 28D 15H 39M</span>
+        <span>절약한 탄소: {powerUsage.savedCarbon.toFixed(2)} CO2 kg</span>
       </div>
       <div className="stat-item">
         <img src="/Money.png" alt="Money" className="stat-icon" />
-        <span>절약한 돈: 28D 15H 39M</span>
+        <span>절약한 돈: {powerUsage.savedMoney} 원</span>
       </div>
     </div>
   );

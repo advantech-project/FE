@@ -1,0 +1,26 @@
+.iot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-buttons {
+  margin-bottom: 20px; /* 방 버튼과 IOT 박스 사이의 간격 조정 */
+}
+
+.iot-box {
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  width: 300px; /* 박스 크기 조정 */
+  text-align: center;
+}
+
+.iot-header {
+  margin-bottom: 10px; /* 헤더와 컨트롤 사이의 간격 조정 */
+}
+
+.iot-controls {
+  display: flex;
+  justify-content: space-around; /* ON/OFF 버튼을 양쪽으로 분산 배치 */
+}

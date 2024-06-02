@@ -5,19 +5,24 @@
   color: #fff;
   padding: 20px;
   border-radius: 10px;
+  flex-direction: column; /* 세로 방향으로 자식 요소들을 정렬 */
+  align-items: center; /* 중앙 정렬 */
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 600px;
 }
 
 .content {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .charts {

@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import UserList from "./components/UserList";
-import PowerTest from "./pages/PowerTest";
+import PowerTest from "./components/PowerTest";
 
 function App() {
   return (
@@ -12,9 +12,8 @@ function App() {
       <Sidebar />
       <div className="content-container">
         <Routes>
-          <Route path="/" element={<Navigate to="/building/inha" />} />
-          <Route path="/building/:buildingName" element={<Dashboard />} />
-          <Route path="/test-power" element={<PowerTest />} />
+          <Route path="/" element={<Navigate to="/test-power/inha" />} />
+          <Route path="/test-power/:buildingID" element={<Dashboard />} />
         </Routes>
       </div>
       <div className="User">
