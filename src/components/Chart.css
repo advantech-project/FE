@@ -1,0 +1,40 @@
+.iframe-container {
+  display: flex;
+  grid-template-columns: 30% 30%; /* Left and Right columns */
+  grid-template-rows: 70% 30%; /* Upper rows for iframes and lower row for digital_tween */
+  gap: 20px; /* Gap between grid items */
+  height: 150%; /* Full height of the parent container */
+  width: 98%; /* Full width of the parent container */
+  background-color: #243447; /* Background color */
+  padding: 20px; /* Padding around the container */
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px 30px;
+  height: 100%; /* Ensure columns take full height of their row */
+  width: 100%;
+}
+
+iframe {
+  width: 100%; /* Ensure iframes take full width of the column */
+  height: calc(
+    100% / 3
+  ); /* Adjust height to split evenly in three, considering gap */
+  border: none; /* Remove border from iframes */
+}
+
+/* Additional individual styling for iframe containers */
+#building_power_usage,
+#rank_building_cash,
+#rank_today_building_usage,
+#rank_accumulate_building_power,
+#total_usage_predict_usage,
+#circle,
+#digital_tween,
+#cctv {
+  background: #1a2835; /* Slight contrast for each iframe */
+  padding: 10px;
+  border-radius: 10px;
+}

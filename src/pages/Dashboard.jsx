@@ -4,6 +4,7 @@ import "./Dashboard.css";
 import Stats from "../components/Stats";
 import PowerTest from "../components/PowerTest";
 import IOT from "../components/IOT";
+import Chart from "../components/Chart";
 
 const Dashboard = () => {
   return (
@@ -13,7 +14,9 @@ const Dashboard = () => {
         <PowerTest />
         <IOT />
       </div>
-      <div className="content"></div>
+      <div className="content">
+        <Chart />
+      </div>
     </div>
   );
 };

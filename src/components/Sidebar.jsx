@@ -5,34 +5,29 @@ import "./Sidebar.css";
 const Sidebar = () => {
   const navigate = useNavigate();
   const [buildings, setBuildings] = useState([
-    "5",
-    "hightech",
-    "60",
-    "inha",
-    "2",
-    "4",
-    "6",
-    "student",
-    "9",
-    "west",
-    "nabil",
-    "library",
-    "law",
-    "kim",
+    { label: "5호동관", value: 1 },
+    { label: "5호북관", value: 2 },
+    { label: "5호남관", value: 3 },
+    { label: "60주년기념관", value: 4 },
+    { label: "하이테크", value: 5 },
+    { label: "본관", value: 6 },
+    { label: "2호북관", value: 7 },
+    { label: "2호남관/4호관", value: 8 },
+    { label: "서호관", value: 9 },
+    { label: "인하드림센터 2/3관", value: 10 },
+    { label: "9호관", value: 11 },
+    { label: "7호관", value: 12 },
+    { label: "로스쿨관", value: 13 },
+    { label: "김현태인하드림센터", value: 14 },
   ]);
   const [selectedBuilding, setSelectedBuilding] = useState("");
 
-  const handleAddBuilding = () => {
-    const newBuilding = prompt("새 건물 이름:");
-    if (newBuilding && !buildings.includes(newBuilding)) {
-      setBuildings([...buildings, newBuilding]);
-    }
-  };
-
   const handleSelectChange = (event) => {
-    const building = event.target.value;
-    setSelectedBuilding(building);
-    navigate(`/${building}`);
+    const buildingValue = parseInt(event.target.value, 10);
+    const building = buildings.find((b) => b.value === buildingValue);
+    setSelectedBuilding(buildingValue);
+    console.log(building.value);
+    navigate(`/${building.value}`);
   };
 
   return (
@@ -50,8 +45,8 @@ const Sidebar = () => {
             빌딩 선택
           </option>
           {buildings.map((building, index) => (
-            <option key={index} value={building}>
-              {building}
+            <option key={index} value={building.value}>
+              {building.label}
             </option>
           ))}
         </select>

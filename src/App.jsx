@@ -11,7 +11,7 @@ function App() {
       <Sidebar />
       <div className="content-container">
         <Routes>
-          <Route path="/" element={<Navigate to="/inha" />} />
+          <Route path="/" element={<Navigate to="/1" />} />
           <Route path="/:buildingID" element={<Dashboard />} />
         </Routes>
       </div>

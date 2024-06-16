@@ -13,7 +13,6 @@ function PowerTest() {
     const fetchData = async () => {
       try {
         const data = await fetchPower(buildingID);
-        console.log(data);
         setPowerData(data);
         setIsLoading(false);
       } catch (error) {

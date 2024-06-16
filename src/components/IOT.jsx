@@ -4,9 +4,10 @@ import IOTservice from "../services/IOTservice";
 
 function IOT_signal() {
   const [iotDevices, setIotDevices] = useState([
-    { iot_id: "1", status: "Undefined", iot_name: "Fan", Room: "202" },
-    { iot_id: "2", status: "Undefined", iot_name: "Plug", Room: "204" },
+    { iot_id: "1", status: "기정맘", iot_name: "Fan", Room: "202" },
+    { iot_id: "2", status: "기정맘", iot_name: "Plug", Room: "204" },
   ]);
+  const [allOn, setAllon] = useState(false);
 
   useEffect(() => {
     const fetchAllIotStatuses = async () => {
@@ -28,7 +29,7 @@ function IOT_signal() {
     };
 
     fetchAllIotStatuses();
-  }, []);
+  }, [iotDevices]);
 
   const handleIotControl = async (iot_id, newStatus) => {
     try {
@@ -54,13 +55,25 @@ function IOT_signal() {
       alert("Failed to control IOT device.");
     }
   };
-
   return (
     <div className="iot-container">
+      <div className="iot-all-container">
+        <img
+          src={allOn ? "/ON.png" : "/OFF.png"} // allOn 상태에 따라 이미지 변경
+          alt={allOn ? "ONLogo" : "OFFLogo"}
+          onClick={() => {
+            handleIotControl(allOn ? "OFF" : "ON"); // allOn 상태에 따라 적절한 신호 전송
+            setAllon(!allOn); // allOn 상태 토글
+          }}
+          className="iot-all-button" // CSS 클래스 이름으로 버튼 스타일 적용
+          style={{ cursor: "pointer" }} // 마우스 포인터를 손가락 모양으로 설정
+        />
+      </div>
+
       {iotDevices.map((device) => (
         <div key={device.iot_id} className="iot-box">
           <div className="iot-header">
-            Room {device.Room} IOT_name {device.iot_name} (ID: {device.iot_id})
+            {device.Room}호 {device.iot_name} (ID: {device.iot_id})
           </div>
           <div className="iot-status">Status: {device.status}</div>
           <div className="iot-controls">

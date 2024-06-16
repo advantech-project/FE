@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Stats.css";
 import fetchPower from "../services/PowerService";
+import { useParams } from "react-router-dom";
 
 const Stats = () => {
+  const { buildingID } = useParams(); // URL에서 buildingID 추출
   const [powerUsage, setPowerUsage] = useState({
     currentPowerUsage: 0,
     expectedPowerUsage: 0,
@@ -16,7 +18,7 @@ const Stats = () => {
   useEffect(() => {
     const fetchPowerData = async () => {
       try {
-        const buildingID = "hightech"; // 예시로 하이테크 건물 ID 사용
+        console.log("buildingID(Stats) : ", buildingID);
         const data = await fetchPower(buildingID);
         const currentPower = parseInt(
           data.current_consumption.split(" ")[0],
@@ -41,7 +43,9 @@ const Stats = () => {
       }
     };
 
-    fetchPowerData();
+    if (buildingID) {
+      fetchPowerData();
+    }
 
     const updateClock = () => {
       const now = new Date();
@@ -49,16 +53,16 @@ const Stats = () => {
       const minutes = now.getMinutes().toString().padStart(2, "0");
       const month = (now.getMonth() + 1).toString().padStart(2, "0");
       const date = now.getDate().toString().padStart(2, "0");
-      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
       const day = dayNames[now.getDay()];
-      setCurrentTime(`${month}.${date}(${day}) ${hours}:${minutes}`);
+      setCurrentTime(`${month}.${date}(${day}) ${hours}시${minutes}분`);
     };
 
     updateClock();
     const timer = setInterval(updateClock, 60000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [buildingID]);
 
   return (
     <div className="stats-container">

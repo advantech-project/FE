@@ -3,8 +3,6 @@ import axios from "axios";
 const API_URL = "http://47.128.214.187:5017";
 
 async function fetchPower(buildingID) {
-  console.log(buildingID);
-
   const url = `${API_URL}/${buildingID}/power-usage`;
   try {
     const response = await axios.get(url);
