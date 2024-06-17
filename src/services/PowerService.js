@@ -1,11 +1,13 @@
 import axios from "axios";
 
-const API_URL = "http://47.128.214.187:5017";
+const API_URL = "http://47.128.225.145:5017";
 
 async function fetchPower(buildingID) {
   const url = `${API_URL}/${buildingID}/power-usage`;
   try {
     const response = await axios.get(url);
+    console.log("123456");
+    console.log(response);
     return response.data; // 데이터 반환
   } catch (error) {
     console.error(`PowerService fetchPower Error in ${buildingID}:`, error);

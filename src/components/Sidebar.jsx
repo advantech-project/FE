@@ -33,7 +33,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="logo" onClick={() => navigate("/")}>
-        <img src="/Ecoala.png" alt="Logo" />
+        <img src="/ecoalala.png" alt="Logo" />
       </div>
       <div className="buttons">
         <select

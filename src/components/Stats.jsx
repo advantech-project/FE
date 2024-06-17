@@ -18,19 +18,15 @@ const Stats = () => {
   useEffect(() => {
     const fetchPowerData = async () => {
       try {
-        console.log("buildingID(Stats) : ", buildingID);
         const data = await fetchPower(buildingID);
-        const currentPower = parseInt(
-          data.current_consumption.split(" ")[0],
-          10
-        ); // "350 kWh"에서 숫자만 추출
-        const expectedPower = parseInt(
-          data.expected_consumption.split(" ")[0],
-          10
-        ); // "500 kWh"에서 숫자만 추출
-        const savedPower = expectedPower - currentPower;
-        const savedCarbon = savedPower * 0.4;
-        const savedMoney = savedPower * 200;
+        console.log("현재전력사용량 : ", data.originalPowerUsage);
+        console.log("예상전력사용량 : ", data.originPrediction);
+        const currentPower = data.originalPowerUsage; // 현재 전력 사용량
+        const expectedPower = data.originPrediction; // 예상 전력 사용량
+        const savedPower = expectedPower - currentPower; // 절약된 전력
+        const savedCarbon = savedPower * 0.4; // 절약된 탄소량 계산
+        const savedMoney = savedPower * 200; // 절약된 비용 계산
+
         setPowerUsage({
           currentPowerUsage: currentPower,
           expectedPowerUsage: expectedPower,
@@ -80,7 +76,7 @@ const Stats = () => {
       </div>
       <div className="stat-item">
         <img src="/Money.png" alt="Money" className="stat-icon" />
-        <span>절약한 돈: {powerUsage.savedMoney} 원</span>
+        <span>절약한 돈: {powerUsage.savedMoney.toFixed(2)} 원</span>
       </div>
     </div>
   );

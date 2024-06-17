@@ -13,6 +13,8 @@ function PowerTest() {
     const fetchData = async () => {
       try {
         const data = await fetchPower(buildingID);
+        console.log(123123);
+        console.log(data);
         setPowerData(data);
         setIsLoading(false);
       } catch (error) {
@@ -34,20 +36,14 @@ function PowerTest() {
 
   return (
     <div className="power-usage-box">
-      <div className="power-usage-item">
-        {/* <h1>현재 전력 사용량</h1>
-        <p>{powerData.current_consumption || "데이터 없음"}</p>
-      </div>
-      <div className="power-usage-item">
-        <h1>예상 전력 사용량</h1>
-        <p>{powerData.expected_consumption || "데이터 없음"}</p> */}
+      {/* <div className="power-usage-item">
         <h1>현재 전력 사용량</h1>
-        <p>{powerData.datavalue || "데이터 없음"}</p>
+        <p>{powerData.originalPowerUsage || "데이터 없음"}</p>
       </div>
       <div className="power-usage-item">
         <h1>예상 전력 사용량</h1>
-        <p>{powerData.datavalue || "데이터 없음"}</p>
-      </div>
+        <p>{powerData.originPrediction || "데이터 없음"}</p>
+      </div> */}
     </div>
   );
 }
